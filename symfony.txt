@@ -1,0 +1,67 @@
+
+// docker
+REGISTRY_ADDRESS=registry IMAGE_TAG=0 make build-production
+
+docker-compose run --rm manager-php-cli composer
+docker-compose run --rm manager-php-cli composer require slim/slim
+docker-compose run --rm manager-php-cli composer outdated
+
+
+// Symfony install
+docker-compose run --rm manager-php-cli composer create-project symfony/website-skeleton skeleton
+
+// start tests
+docker-compose run --rm manager-php-cli php bin/phpunit
+docker-compose run --rm manager-php-cli php bin/phpunit --filter=HomeTest
+
+docker-compose run --rm manager-php-cli php bin/console
+docker-compose run --rm manager-php-cli php bin/console debug:router
+
+docker-compose run --rm manager-php-cli php bin/console make:entity
+
+docker-compose run --rm manager-php-cli php bin/console make:migration
+docker-compose run --rm manager-php-cli php bin/console doctrine:migrations:migrate  //apply all migrations
+docker-compose run --rm manager-php-cli php bin/console doctrine:migrations:diff //apply new migrations
+
+docker-compose run --rm manager-php-cli php bin/console make:crud
+
+docker-compose run --rm manager-php-cli php bin/console make:user
+docker-compose run --rm manager-php-cli php bin/console make:auth
+docker-compose run --rm manager-php-cli php bin/console make:registration-form
+
+
+// Unit of Work
+    $post = new Post();
+    $post->setTitle('Test Title');
+    $em->persist($post);
+    $em->flush();
+    */ $toInsert = [];  /*
+    */ $toUpdate = [];  /*
+
+// Identity Map
+    */ $entities = [
+        25 => $post,
+    ];  /*
+    $repository = $em->getRepository(Post::class);
+    $post = $repository->find(25);
+
+// Data Mapper
+    в каком формате будут доставатся с базы данные и в каком формате будут сохранятся в базу данные
+
+// assets
+docker-compose run --rm manager-php-cli composer require encore
+docker-compose run --rm manager-node yarn add -s bootstrap jquery popper.js
+docker-compose run --rm manager-node yarn add -s --dev sass-loader node-sass
+docker-compose run --rm manager-node yarn add -s @coreui/coreui font-awesome perfect-scrollbar simple-line-icons
+
+
+// confirm and change role
+docker-compose run --rm manager-php-cli php bin/console user:confirm
+docker-compose run --rm manager-php-cli php bin/console user:role
+
+
+// clear cache
+docker-compose run --rm manager-php-cli php bin/console cache:clear
+
+// swagger
+docker-compose run --rm manager-php-cli php bin/console api:docs
