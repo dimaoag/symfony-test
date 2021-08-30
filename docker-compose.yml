@@ -2,8 +2,8 @@ version: '3'
 services:
     api-nginx:
         build:
-            context: ./api/docker/development
-            dockerfile: nginx.docker
+            context: api/docker
+            dockerfile: development/nginx/Dockerfile
         volumes:
             - ./api:/app
         depends_on:
@@ -12,8 +12,8 @@ services:
             - "8080:80"
     api-php-fpm:
         build:
-            context: ./api/docker/development
-            dockerfile: php-fpm.docker
+            context: api/docker
+            dockerfile: development/php-fpm/Dockerfile
         volumes:
             - ./api:/app
         depends_on:
@@ -23,8 +23,8 @@ services:
             - mailer
     api-php-cli:
         build:
-            context: ./api/docker/development
-            dockerfile: php-cli.docker
+            context: api/docker
+            dockerfile: development/php-cli/Dockerfile
         volumes:
             - ./api:/app
             - ./docker/cache/composer:/root/.composer/cache

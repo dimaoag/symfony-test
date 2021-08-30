@@ -23,7 +23,7 @@ docker-build:
 	docker-compose build
 
 manager-clear:
-	docker run --rm -v ${PWD}/manager:/app --workdir=/app alpine rm -f .ready
+	docker run --rm -v ${PWD}/api:/app --workdir=/app alpine rm -f .ready
 
 bash:
 	docker-compose run --rm api-php-cli bash
