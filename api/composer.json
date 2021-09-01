@@ -77,6 +77,7 @@
         "symfony/polyfill-php72": "*"
     },
     "scripts": {
+        "app": "php bin/console --ansi",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
