@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\ArgumentResolver\SpecificType;
+use App\Service\MessageGenerator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,8 +16,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 final class AboutController extends AbstractController
 {
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(): Response
+    public function index(MessageGenerator $generator): Response
     {
+        $message = $generator->getHappyMessage();
+
         $number = 5;
         return $this->render('base.html.twig', [
             'number' => $number
@@ -61,6 +64,8 @@ final class AboutController extends AbstractController
     )]
     public function specificType(SpecificType $type): Response
     {
+        $email = $this->getParameter('app.admin_email');
+
         return $this->json(['type' => $type->getValue()]);
     }
 
