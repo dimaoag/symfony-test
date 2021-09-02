@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\ArgumentResolver\SpecificType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,6 +52,16 @@ final class AboutController extends AbstractController
         return $this->render('base.html.twig', [
             'number' => $id
         ]);
+    }
+
+    #[Route(
+        '/type',
+        name: 'specific_type',
+        methods: ['GET'],
+    )]
+    public function specificType(SpecificType $type): Response
+    {
+        return $this->json(['type' => $type->getValue()]);
     }
 
 }
