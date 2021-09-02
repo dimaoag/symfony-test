@@ -15,6 +15,14 @@
     </head>
     <body>
         {% block body %}
+            {# прочитать и отобразить несколько типов флеш-сообщений #}
+            {% for label, messages in app.flashes(['success', 'notice', 'warning']) %}
+                {% for message in messages %}
+                    <div class="flash-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
             <h1>Hello world {{ number }}</h1>
         {% endblock %}
     </body>
