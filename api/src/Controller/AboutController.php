@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\ArgumentResolver\SpecificType;
 use App\Service\MessageGenerator;
+use App\Service\SiteUpdateManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,9 +17,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 final class AboutController extends AbstractController
 {
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(MessageGenerator $generator): Response
+    public function index(MessageGenerator $generator, SiteUpdateManager $manager): Response
     {
         $message = $generator->getHappyMessage();
+        $manager->notifyOfSiteUpdate();
 
         $number = 5;
         return $this->render('base.html.twig', [
