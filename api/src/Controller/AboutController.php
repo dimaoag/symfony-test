@@ -7,6 +7,8 @@ namespace App\Controller;
 use App\ArgumentResolver\SpecificType;
 use App\Service\MessageGenerator;
 use App\Service\SiteUpdateManager;
+use App\Util\Rot13Transformer;
+use App\Util\TransformerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,10 +19,20 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 final class AboutController extends AbstractController
 {
     #[Route('', name: 'index', methods: ['GET'])]
-    public function index(MessageGenerator $generator, SiteUpdateManager $manager): Response
+    public function index(
+        MessageGenerator $generator,
+        SiteUpdateManager $manager,
+        TransformerInterface $transformer
+    ): Response
     {
         $message = $generator->getHappyMessage();
         $manager->notifyOfSiteUpdate();
+
+        if ($transformer instanceof Rot13Transformer) {
+            $transformer->setLogger($generator->getLogger());
+        }
+
+        $transformer->transform($message);
 
         $number = 5;
         return $this->render('base.html.twig', [

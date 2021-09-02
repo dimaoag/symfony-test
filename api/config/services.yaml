@@ -60,3 +60,23 @@ services:
     App\Service\MessageGenerator:
         arguments:
             $adminEmail: '%app.admin_email%'
+
+
+    App\Util\Rot13Transformer:
+        alias: ~
+#        calls:
+#            - method: setLogger
+#              arguments:
+#                  - '@logger'
+
+    App\Util\UppercaseTransformer: ~
+
+    # сервис ``App\Util\UppercaseTransformer`` будет внедрен, когда
+    # будет обнаружена подсказка ``App\Util\TransformerInterface``
+    # для аргумента ``$shoutyTransformer``.
+    App\Util\TransformerInterface $shoutyTransformer: '@App\Util\UppercaseTransformer'
+
+    # Если аргумент, используемый для внедрения, не совпадает, а подсказка
+    # совпадает, будет внедрен сервис
+    # ``App\Util\Rot13Transformer``.
+    App\Util\TransformerInterface: '@App\Util\Rot13Transformer'

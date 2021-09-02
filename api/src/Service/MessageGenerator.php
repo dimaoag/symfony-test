@@ -33,4 +33,10 @@ final class MessageGenerator
 
         return $message;
     }
+
+    public function getLogger(): LoggerInterface
+    {
+        return $this->logger;
+    }
+
 }
