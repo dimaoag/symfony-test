@@ -80,3 +80,10 @@ services:
     # совпадает, будет внедрен сервис
     # ``App\Service\SomeTest\Transformer\Rot13Transformer``.
     App\Service\SomeTest\Transformer\TransformerInterface: '@App\Service\SomeTest\Transformer\Rot13Transformer'
+
+    # переопределить сервисы, чтобы установить конфигуратор
+    App\Service\SomeTest\Configurator\NewsletterManager:
+        configurator: 'App\Service\SomeTest\Configurator\EmailConfigurator:configure'
+
+    App\Service\SomeTest\Configurator\GreetingCardManager:
+        configurator: 'App\Service\SomeTest\Configurator\EmailConfigurator:configure'
