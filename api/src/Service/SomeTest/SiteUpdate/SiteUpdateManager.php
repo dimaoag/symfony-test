@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Service\SomeTest\SiteUpdate;
 
+use App\Service\SomeTest\SiteUpdate\MessageGenerator;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 

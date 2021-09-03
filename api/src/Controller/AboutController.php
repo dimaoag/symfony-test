@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\ArgumentResolver\SpecificType;
-use App\Service\MessageGenerator;
-use App\Service\SiteUpdateManager;
-use App\Util\Rot13Transformer;
-use App\Util\TransformerInterface;
+use App\Service\SomeTest\SiteUpdate\MessageGenerator;
+use App\Service\SomeTest\SiteUpdate\SiteUpdateManager;
+use App\Service\SomeTest\Transformer\Rot13Transformer;
+use App\Service\SomeTest\Transformer\TransformerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

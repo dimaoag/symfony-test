@@ -32,51 +32,51 @@ services:
 
     # это id сервиса
     site_update_manager.superadmin:
-        class: App\Service\SiteUpdateManager
+        class: App\Service\SomeTest\SiteUpdate\SiteUpdateManager
         # вы все еще МОЖЕТЕ использовать автомонтирование: мы просто хотим показать, как это вылядит без него
         autowire: false
         # вручную подключите все аргументы
         arguments:
-            - '@App\Service\MessageGenerator'
+            - '@App\Service\SomeTest\SiteUpdate\MessageGenerator'
             - '@mailer'
             - 'superadmin@example.com'
 
     site_update_manager.normal_users:
-        class: App\Service\SiteUpdateManager
+        class: App\Service\SomeTest\SiteUpdate\SiteUpdateManager
         autowire: false
         arguments:
-            - '@App\Service\MessageGenerator'
+            - '@App\Service\SomeTest\SiteUpdate\MessageGenerator'
             - '@mailer'
             - 'contact@example.com'
 
     # Создайте псевдоним, чтобы по умолчанию, если вы используете подсказку SiteUpdateManager,
     # использовался site_update_manager.superadmin
-    App\Service\SiteUpdateManager: '@site_update_manager.superadmin'
+    App\Service\SomeTest\SiteUpdate\SiteUpdateManager: '@site_update_manager.superadmin'
 
     App\ArgumentResolver\SpecificTypeValueResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 50 }
 
-    App\Service\MessageGenerator:
+    App\Service\SomeTest\SiteUpdate\MessageGenerator:
         arguments:
             $adminEmail: '%app.admin_email%'
 
 
-    App\Util\Rot13Transformer:
+    App\Service\SomeTest\Transformer\Rot13Transformer:
         alias: ~
 #        calls:
 #            - method: setLogger
 #              arguments:
 #                  - '@logger'
 
-    App\Util\UppercaseTransformer: ~
+    App\Service\SomeTest\Transformer\UppercaseTransformer: ~
 
-    # сервис ``App\Util\UppercaseTransformer`` будет внедрен, когда
-    # будет обнаружена подсказка ``App\Util\TransformerInterface``
+    # сервис ``App\Service\SomeTest\Transformer\UppercaseTransformer`` будет внедрен, когда
+    # будет обнаружена подсказка ``App\Service\SomeTest\Transformer\TransformerInterface``
     # для аргумента ``$shoutyTransformer``.
-    App\Util\TransformerInterface $shoutyTransformer: '@App\Util\UppercaseTransformer'
+    App\Util\TransformerInterface $shoutyTransformer: '@App\Service\SomeTest\Transformer\UppercaseTransformer'
 
     # Если аргумент, используемый для внедрения, не совпадает, а подсказка
     # совпадает, будет внедрен сервис
-    # ``App\Util\Rot13Transformer``.
-    App\Util\TransformerInterface: '@App\Util\Rot13Transformer'
+    # ``App\Service\SomeTest\Transformer\Rot13Transformer``.
+    App\Service\SomeTest\Transformer\TransformerInterface: '@App\Service\SomeTest\Transformer\Rot13Transformer'

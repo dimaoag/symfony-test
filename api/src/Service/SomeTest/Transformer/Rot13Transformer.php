@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Util;
+namespace App\Service\SomeTest\Transformer;
 
+use App\Service\SomeTest\Transformer\TransformerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
