@@ -87,3 +87,7 @@ services:
 
     App\Service\SomeTest\Configurator\GreetingCardManager:
         configurator: 'App\Service\SomeTest\Configurator\EmailConfigurator:configure'
+
+    App\Service\SomeTest\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
