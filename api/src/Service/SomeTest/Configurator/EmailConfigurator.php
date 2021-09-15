@@ -6,7 +6,7 @@ namespace App\Service\SomeTest\Configurator;
 
 final class EmailConfigurator
 {
-    private $formatterManager;
+    private \App\Service\SomeTest\Configurator\EmailFormatterManager $formatterManager;
 
     public function __construct(EmailFormatterManager $formatterManager)
     {

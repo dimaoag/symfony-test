@@ -6,7 +6,7 @@ namespace App\Service\SomeTest\Configurator;
 
 final class NewsletterManager implements EmailFormatterAwareInterface
 {
-    private $enabledFormatters;
+    private ?array $enabledFormatters = null;
 
     public function setEnabledFormatters(array $enabledFormatters): void
     {

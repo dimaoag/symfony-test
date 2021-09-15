@@ -28,6 +28,9 @@ manager-clear:
 bash:
 	docker-compose run --rm api-php-cli bash
 
+rector:
+	docker-compose run --rm api-php-cli composer rector
+
 manager-migrations:
 	docker-compose run --rm manager-php-cli php bin/console doctrine:migrations:migrate --no-interaction
 

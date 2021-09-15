@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class LocaleSubscriber implements EventSubscriberInterface
 {
-    private string $defaultLocale;
+    private ?string $defaultLocale;
 
     public function __construct(?string $defaultLocale = 'en')
     {

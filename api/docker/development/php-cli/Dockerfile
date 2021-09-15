@@ -2,7 +2,7 @@ FROM php:8.0-cli-alpine
 
 ENV XDEBUG_VERSION 3.0.4
 
-RUN apk add --no-cache postgresql-dev bash coreutils git \
+RUN apk add --no-cache postgresql-dev libzip-dev bash coreutils git \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && git clone --branch $XDEBUG_VERSION --depth 1 https://github.com/xdebug/xdebug.git /usr/src/php/ext/xdebug \
     && docker-php-ext-configure xdebug --enable-xdebug-dev \
@@ -11,6 +11,10 @@ RUN apk add --no-cache postgresql-dev bash coreutils git \
     && apk del git
 
 RUN apk add --no-cache unzip
+
+# Intl
+RUN apk add --no-cache icu-dev \
+    && docker-php-ext-install intl
 
 RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 
