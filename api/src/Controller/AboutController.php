@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\ArgumentResolver\SpecificType;
+use App\Service\SomeTest\EventDispatcher\CustomEvents\Order;
+use App\Service\SomeTest\EventDispatcher\CustomEvents\OrderPlacedEvent;
 use App\Service\SomeTest\SiteUpdate\MessageGenerator;
 use App\Service\SomeTest\SiteUpdate\SiteUpdateManager;
 use App\Service\SomeTest\Transformer\Rot13Transformer;
 use App\Service\SomeTest\Transformer\TransformerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,6 +21,15 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 #[Route('/about', name: 'about_')]
 final class AboutController extends AbstractController
 {
+    private EventDispatcherInterface $dispatcher;
+
+
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
+
     #[Route('', name: 'index', methods: ['GET'])]
     public function index(
         MessageGenerator $generator,
@@ -33,6 +45,11 @@ final class AboutController extends AbstractController
         }
 
         $transformer->transform($message);
+
+        $this->dispatcher->dispatch(
+            new OrderPlacedEvent(new Order()),
+            OrderPlacedEvent::NAME
+        );
 
         $number = 5;
         return $this->render('base.html.twig', [
